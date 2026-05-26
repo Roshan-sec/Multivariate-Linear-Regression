@@ -22,62 +22,18 @@ Visualize residual errors and Interpret results
 
 ## Program:
 ```
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn import datasets, linear_model, metrics
-from sklearn.model_selection import train_test_split
-
-# load the California housing dataset (replacement for Boston dataset)
-california = datasets.fetch_california_housing()
-
-# define features matrix(X) and response vector(y)
-X = california.data
-y = california.target
-
-# splitting X and y into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.4, random_state=1
-)
-
-# create linear regression object
-reg = linear_model.LinearRegression()
-
-# train the model using the training sets
-reg.fit(X_train, y_train)
-
-# Regression coefficients
-print('Coefficients: ', reg.coef_)
-
-# variance score: 1 means perfect prediction
-print('Variance score: {}'.format(reg.score(X_test, y_test)))
-
-# plot for residual error
-plt.style.use('fivethirtyeight')
-
-# plotting residual errors in training data
-plt.scatter(reg.predict(X_train), reg.predict(X_train) - y_train,
-            color="green", s=10, label='Train data')
-
-# plotting residual errors in test data
-plt.scatter(reg.predict(X_test), reg.predict(X_test) - y_test,
-            color="blue", s=10, label='Test data')
-
-# plotting line for zero residual error
-plt.hlines(y=0, xmin=min(y_test), xmax=max(y_test), linewidth=2)
-
-# plotting legend
-plt.legend(loc='upper right')
-
-# plot title
-plt.title("Residual errors (California Housing)")
-
-# show the plot
-plt.show()
-
-
-
-
-
+import pandas as pd
+from sklearn import linear_model
+df = pd.read_csv(r"D:\hack11\caremission.csv")
+X = df[['Weight', 'Volume']]
+y = df['CO2']
+regr = linear_model.LinearRegression()
+regr.fit(X, y)
+print('Coefficients:', regr.coef_)
+print('Intercept:', regr.intercept_)
+input_data = pd.DataFrame({'Weight': [3300], 'Volume': [1300]})
+predictedCO2 = regr.predict(input_data)
+print('Predicted CO2 for the corresponding weight and volume:', predictedCO2)
 
 
 
@@ -88,7 +44,8 @@ plt.show()
 ```
 ## Output:
 
-<img width="861" height="667" alt="image" src="https://github.com/user-attachments/assets/3a2a38fb-f878-4e49-8f2b-ca48c6ddb69c" />
+<img width="1034" height="299" alt="WhatsApp Image 2026-05-26 at 8 09 23 PM" src="https://github.com/user-attachments/assets/31bb9444-c4f9-4be5-8e48-3a249ad8ff71" />
+
 
 
 
